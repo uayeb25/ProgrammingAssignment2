@@ -9,8 +9,8 @@ makeCacheMatrix <- function(x = matrix()) {
     s <- NULL
     x <- testMatrix(x)
     
-    set <- function(y){
-        x <<- y
+    set <- function(y=""){
+        x <<- testMatrix(y)
         s <<- NULL
     }
     get <- function() x
@@ -24,15 +24,20 @@ makeCacheMatrix <- function(x = matrix()) {
 ## Verify if it is a square matrix
 
 testMatrix <- function(m){
-    if( nrow(m) == ncol(m) ){
-        if( nrow(m) > 1 ){
-            m
-        }else{
-            message("the matrix must be greater to 1 dimension")
-        }
+    if(!is.matrix(m)){
+        message("The argument should be a square matrix")
     }else{
-        message("the matrix setting isn't square")
+        if( nrow(m) == ncol(m) ){
+            if( nrow(m) > 1 ){
+                m
+            }else{
+                message("the matrix must be greater to 1 dimension")
+            }
+        }else{
+            message("the matrix setting isn't square")
+        }    
     }
+    
 }
 
 
