@@ -1,15 +1,62 @@
-## Put comments here that give an overall description of what your
-## functions do
+## Program Assignment 2:
+## Made by Uayeb Caballero
 
-## Write a short comment describing this function
+
+## make a matrix with functions to set and get its values 
 
 makeCacheMatrix <- function(x = matrix()) {
+  
+    s <- NULL
+    x <- testMatrix(x)
+    
+    set <- function(y){
+        x <<- y
+        s <<- NULL
+    }
+    get <- function() x
+    
+    setsolve <- function(solve) s <<- solve
+    getsolve <- function() s
+    list(set = set, get = get, setsolve = setsolve, getsolve = getsolve)
+  
+}
 
+## Verify if it is a square matrix
+
+testMatrix <- function(m){
+    if( nrow(m) == ncol(m) ){
+        if( nrow(m) > 1 ){
+            m
+        }else{
+            message("the matrix must be greater to 1 dimension")
+        }
+    }else{
+        message("the matrix setting isn't square")
+    }
 }
 
 
-## Write a short comment describing this function
+## save on cache the solve of matrix
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+    
+    s <- x$getsolve()
+    if(!is.null(s)){
+        message("getting cached data")
+        return(s)
+    }
+    
+    m <- x$get()
+    if(is.null(m[1,1])){
+        message("Please set correct matrix value!")
+    }else{
+        if(det(m)==0){
+            message("The matrix's determinant should be distinct to zero")
+        }else{
+            s <- solve(m)
+            x$setsolve(s)
+            s
+        }   
+    }
+    
 }
